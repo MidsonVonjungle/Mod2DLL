@@ -15,7 +15,7 @@ namespace TheOrganizedSaberDLL.SaberSkinChangeCode
                 owner.UnitData.unitData.bookItem.ClassInfo.CharacterSkin = new List<string> { "SaberSkin2" };
         }
 
-        public override void OnRoundEnd()
+        public override void OnWaveStart()
         {
             _util = new MechUtilBase(new MechUtilBaseModel
             {
