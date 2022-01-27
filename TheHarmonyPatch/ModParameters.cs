@@ -11,10 +11,9 @@ namespace TheOrganizedSaberDLL.TheHarmonyPatch
         public static readonly Dictionary<string, Sprite> ArtWorks = new Dictionary<string, Sprite>();
 
         public static readonly List<int> PersonalCardList = new List<int> { 11 };
-        public static readonly List<int> EgoPersonalCardList = new List<int> {  };
-        public static readonly List<int> UntransferablePassives = new List<int> { };
-        public static readonly List<int> NoInventoryCardList = new List<int> {  };
-        public static List<Tuple<string, List<int>, int>> OnlyCardKeywords = new List<Tuple<string, List<int>, int>>{ };
+        public static readonly List<int> EgoPersonalCardList = new List<int>();
+        public static readonly List<int> UntransferablePassives = new List<int> { 3 };
+        public static List<Tuple<string, List<int>, int>> OnlyCardKeywords = new List<Tuple<string, List<int>, int>>();
 
         public static readonly List<SkinNames> SkinParameters = new List<SkinNames>
         {

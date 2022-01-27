@@ -1,6 +1,4 @@
-﻿using TheOrganizedSaberDLL.Saber_Custom_Buf;
-
-namespace TheOrganizedSaberDLL.Saber_Combat_Page_Effects
+﻿namespace TheOrganizedSaberDLL.Saber_Combat_Page_Effects
 {
     public class DiceCardSelfAbility_GrantEGOEffect_Md5488 : DiceCardSelfAbilityBase
     {

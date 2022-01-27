@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using Workshop;
 
 namespace TheOrganizedSaberDLL.TheHarmonyPatch
 {
@@ -19,6 +17,8 @@ namespace TheOrganizedSaberDLL.TheHarmonyPatch
                 new DirectoryInfo(ModParameters.Path +
                                   "/ArtWork")); //This will make use of a new folder in your Assemblies called 'ArtWork'
             SkinUtil.PreLoadBufIcons(); //This will load Buf Icons
+            UnitUtil.ChangeCardItem(ItemXmlDataList.instance);
+            UnitUtil.ChangePassiveItem();
             LocalizeUtil
                 .AddLocalize(); //This will add localization, which you'll need to give a description to your buf
         }

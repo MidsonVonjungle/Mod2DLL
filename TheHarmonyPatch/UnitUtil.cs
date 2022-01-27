@@ -1,9 +1,8 @@
-﻿using System;
-using LOR_DiceSystem;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UI;
 using HarmonyLib;
+using LOR_DiceSystem;
+using UI;
 
 namespace TheOrganizedSaberDLL.TheHarmonyPatch
 {
@@ -22,11 +21,10 @@ namespace TheOrganizedSaberDLL.TheHarmonyPatch
             BattleObjectManager.instance.InitUI();
         }
 
-        
-        
+
         //Everthing below here is only for card related coding, proceed at your own risk
         private static void SetBaseKeywordCard(LorId id, ref Dictionary<LorId, DiceCardXmlInfo> cardDictionary,
-           ref List<DiceCardXmlInfo> cardXmlList)
+            ref List<DiceCardXmlInfo> cardXmlList)
         {
             var keywordsList = GetKeywordsList(id.id).ToList();
             var diceCardXmlInfo2 = CardOptionChange(cardDictionary[id], new List<CardOption>(), true, keywordsList);
@@ -90,40 +88,35 @@ namespace TheOrganizedSaberDLL.TheHarmonyPatch
                 Keywords = keywordRequired ? keywords : cardXml.Keywords
             };
         }
+
         public static void ChangeCardItem(ItemXmlDataList instance)
         {
-            Dictionary<LorId, DiceCardXmlInfo> source = (Dictionary<LorId, DiceCardXmlInfo>)instance.GetType().GetField("_cardInfoTable", AccessTools.all).GetValue(instance);
-            List<DiceCardXmlInfo> list = (List<DiceCardXmlInfo>)instance.GetType().GetField("_cardInfoList", AccessTools.all).GetValue(instance);
-            List<int> allOnlyCardsId = UnitUtil.GetAllOnlyCardsId();
-            foreach (KeyValuePair<LorId, DiceCardXmlInfo> keyValuePair in (from x in source
-                                                                           where x.Key.packageId == "SaeModSa21341.Mod"
-                                                                           select x).ToList<KeyValuePair<LorId, DiceCardXmlInfo>>())
+            var dictionary = (Dictionary<LorId, DiceCardXmlInfo>)instance.GetType()
+                .GetField("_cardInfoTable", AccessTools.all).GetValue(instance);
+            var list = (List<DiceCardXmlInfo>)instance.GetType()
+                .GetField("_cardInfoList", AccessTools.all).GetValue(instance);
+            var onlyPageCardList = GetAllOnlyCardsId();
+            foreach (var item in dictionary.Where(x => x.Key.packageId == ModParameters.PackageId).ToList())
             {
-                bool flag = ModParameters.PersonalCardList.Contains(keyValuePair.Key.id);
-                if (flag)
+                if (ModParameters.PersonalCardList.Contains(item.Key.id))
                 {
-                    UnitUtil.SetCustomCardOption(CardOption.Personal, keyValuePair.Key, false, ref source, ref list);
+                    SetCustomCardOption(CardOption.Personal, item.Key, false, ref dictionary, ref list);
+                    continue;
                 }
-                else
+
+                if (ModParameters.EgoPersonalCardList.Contains(item.Key.id))
                 {
-                    bool flag2 = ModParameters.EgoPersonalCardList.Contains(keyValuePair.Key.id);
-                    if (flag2)
-                    {
-                        UnitUtil.SetCustomCardOption(CardOption.EgoPersonal, keyValuePair.Key, false, ref source, ref list);
-                    }
-                    else
-                    {
-                        bool flag3 = allOnlyCardsId.Contains(keyValuePair.Key.id);
-                        if (flag3)
-                        {
-                            UnitUtil.SetCustomCardOption(CardOption.OnlyPage, keyValuePair.Key, true, ref source, ref list);
-                        }
-                        else
-                        {
-                            UnitUtil.SetBaseKeywordCard(keyValuePair.Key, ref source, ref list);
-                        }
-                    }
+                    SetCustomCardOption(CardOption.EgoPersonal, item.Key, false, ref dictionary, ref list);
+                    continue;
                 }
+
+                if (onlyPageCardList.Contains(item.Key.id))
+                {
+                    SetCustomCardOption(CardOption.OnlyPage, item.Key, true, ref dictionary, ref list);
+                    continue;
+                }
+
+                SetBaseKeywordCard(item.Key, ref dictionary, ref list);
             }
         }
 

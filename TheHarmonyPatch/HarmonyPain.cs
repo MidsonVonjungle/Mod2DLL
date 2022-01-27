@@ -38,6 +38,7 @@ namespace TheOrganizedSaberDLL.TheHarmonyPatch
             __instance.charAppearance.SetLibrarianOnlySprites(__instance.model.faction);
             __instance.model.UnitData.unitData.bookItem.ClassInfo.CharacterSkin = new List<string> { charName };
         }
+
         [HarmonyPrefix]
         [HarmonyPatch(typeof(WorkshopSkinDataSetter), "SetMotionData")]
         public static void WorkshopSkinDataSetter_SetMotionData(WorkshopSkinDataSetter __instance, ActionDetail motion)
@@ -52,6 +53,21 @@ namespace TheOrganizedSaberDLL.TheHarmonyPatch
                 __instance.Appearance.CharacterMotions.Add(characterMotion.actionDetail, characterMotion);
                 characterMotion.gameObject.SetActive(false);
             }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(UnitDataModel), "EquipBook")]
+        public static void UnitDataModel_EquipBookPostfix(BookModel newBook, bool force)
+        {
+            if (force) return;
+            if (newBook != null && newBook.ClassInfo.id.packageId == ModParameters.PackageId &&
+                ModParameters.SkinNameIds.Any(x =>
+                    x.Item2.Contains(newBook.ClassInfo.id.id) && newBook.ClassInfo.CharacterSkin.Contains(x.Item1)))
+                newBook.ClassInfo.CharacterSkin = new List<string>
+                {
+                    ModParameters.SkinNameIds.FirstOrDefault(x => newBook.ClassInfo.CharacterSkin.Contains(x.Item1))
+                        ?.Item3
+                };
         }
     }
 }
