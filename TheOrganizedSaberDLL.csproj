@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D458889-ED53-4117-BA6C-DB73F7C051DF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TheOrganizedSaberDLL</RootNamespace>
+    <AssemblyName>TheOrganizedSaberDLL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SaberEGOBuff\bin\Debug\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>F:\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>F:\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>F:\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Saber Custom Buf\EGOSmokeBuf.cs" />
+    <Compile Include="Saber Combat Page Effects\GrantEGOPageEffect.cs" />
+    <Compile Include="EGO Saber Combat Page Effects\EGODenverEffect.cs" />
+    <Compile Include="EGO Saber Combat Page Effects\EGOFaulknerEffects.cs" />
+    <Compile Include="EGO Saber Combat Page Effects\EGOHarmoniaEffect.cs" />
+    <Compile Include="EGO Saber Combat Page Effects\EGOMikealEffect.cs" />
+    <Compile Include="EGO Saber Combat Page Effects\EGOSaberEffect.cs" />
+    <Compile Include="EGO Saber Combat Page Effects\EGOVictorEffect.cs" />
+    <Compile Include="EGO Saber Combat Page Effects\EGOWillfordEffect.cs" />
+    <Compile Include="Saber Combat Page Effects\EvelynPageEffect.cs" />
+    <Compile Include="Saber Combat Page Effects\GalePageEffect.cs" />
+    <Compile Include="Saber Combat Page Effects\MikealPageEffect.cs" />
+    <Compile Include="Saber Combat Page Effects\SaberExhaustDraw1.cs" />
+    <Compile Include="Saber Combat Page Effects\SaberExhaustDraw2.cs" />
+    <Compile Include="Saber Combat Page Effects\SaberExhaustDraw3.cs" />
+    <Compile Include="Saber Dice Effects\BlockDiceOnUse2Smoke.cs" />
+    <Compile Include="Saber Dice Effects\ClashWinGain2StrengthNextScene.cs" />
+    <Compile Include="Saber Dice Effects\ClashWinGain2Smoke.cs" />
+    <Compile Include="Saber Dice Effects\DiceRecycle2Times.cs" />
+    <Compile Include="Saber Dice Effects\OnHit1Endurance.cs" />
+    <Compile Include="Saber Dice Effects\OnHit1EnduranceAll%28EGOOnly%29.cs" />
+    <Compile Include="Saber Dice Effects\UnclashedGain1Light.cs" />
+    <Compile Include="Saber Passives\OptionalEGOPassive.cs" />
+    <Compile Include="SaberSkinChangeCode\PassivethatgivestheEGO.cs" />
+    <Compile Include="Saber Passives\SmokeRush.cs" />
+    <Compile Include="Saber Passives\Sabretooth.cs" />
+    <Compile Include="Saber Passives\InhaleStimulants.cs" />
+    <Compile Include="Saber Passives\CloudedCounter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TheHarmonyPatch\HarmonyPain.cs" />
+    <Compile Include="TheHarmonyPatch\UnitUtil.cs" />
+    <Compile Include="TheHarmonyPatch\MechUtilBaseModel.cs" />
+    <Compile Include="TheHarmonyPatch\MechUtil.cs" />
+    <Compile Include="TheHarmonyPatch\LocalizeUtil.cs" />
+    <Compile Include="TheHarmonyPatch\ModParameters.cs" />
+    <Compile Include="TheHarmonyPatch\SkinNames.cs" />
+    <Compile Include="TheHarmonyPatch\SkinUtil.cs" />
+    <Compile Include="TheHarmonyPatch\TheModInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
