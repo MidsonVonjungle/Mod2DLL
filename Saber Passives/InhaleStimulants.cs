@@ -1,4 +1,6 @@
-﻿namespace TheOrganizedSaberDLL.Saber_Passives
+﻿using System.Linq;
+
+namespace TheOrganizedSaberDLL.Saber_Passives
 {
     public class PassiveAbility_SmokeStimulants_Md5488 : PassiveAbilityBase
     {
@@ -41,29 +43,11 @@
 
         private bool CheckCondition(BattlePlayingCardDataInUnitModel card)
         {
-            if (card != null)
-            {
-                var xmlData = card.card.XmlData;
-                if (xmlData == null) return false;
-                if (xmlData.Keywords.Contains("Smoke_Keyword")) return true;
-                var abilityKeywords = Singleton<BattleCardAbilityDescXmlList>.Instance.GetAbilityKeywords(xmlData);
-                for (var i = 0; i < abilityKeywords.Count; i++)
-                    if (abilityKeywords[i] == "Smoke_Keyword")
-                        return true;
-                foreach (var diceBehaviour in card.card.GetBehaviourList())
-                {
-                    var abilityKeywords_byScript =
-                        Singleton<BattleCardAbilityDescXmlList>.Instance.GetAbilityKeywords_byScript(diceBehaviour
-                            .Script);
-                    for (var j = 0; j < abilityKeywords_byScript.Count; j++)
-                        if (abilityKeywords_byScript[j] == "Smoke_Keyword")
-                            return true;
-                }
-
-                return false;
-            }
-
-            return false;
+            var xmlData = card?.card.XmlData;
+            if (xmlData == null) return false;
+            if (xmlData.Keywords.Contains("Smoke_Keyword")) return true;
+            var abilityKeywords = Singleton<BattleCardAbilityDescXmlList>.Instance.GetAbilityKeywords(xmlData);
+            return abilityKeywords.Any(t => t == "Smoke_Keyword") || card.card.GetBehaviourList().Select(diceBehaviour => Singleton<BattleCardAbilityDescXmlList>.Instance.GetAbilityKeywords_byScript(diceBehaviour.Script)).Any(abilityKeywords_byScript => abilityKeywords_byScript.Any(t => t == "Smoke_Keyword"));
         }
 
         public override void OnAddKeywordBufByCardForEvent(KeywordBuf keywordBuf, int stack, BufReadyType readyType)
